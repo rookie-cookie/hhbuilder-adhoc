@@ -3,15 +3,16 @@ HHBUILDER PROBLEM - TASK
 [done] Validate data entry (age is required and > 0, relationship is required)
 [done] Add people to a growing household list
 [done] Remove a previously added person from the list
-[] Display the household list in the HTML as it is modified
+[done] Display the household list in the HTML as it is modified
 [] Serialize the household as JSON upon form submission as a fake trip to the server
-
 */
 
-var form = document.getElementsByTagName('form')[0],
+var myform = document.getElementsByTagName('form')[0],
     body = document.getElementsByTagName('body')[0];
-form.setAttribute("action","#");
-form.setAttribute("method", "post");
+myform.setAttribute("action","#");
+myform.setAttribute("method", "get");
+myform.setAttribute("id", "hhbuilderForm");
+myform.setAttribute("name", "myform");
 
 //user input - contents area
 var hhContainer = document.createElement('div');
@@ -113,6 +114,8 @@ function addData (e){
 
     //clear any previous error messages
     document.getElementById('errormsg').remove();
+
+    return true;
   }
 }
 
@@ -122,7 +125,11 @@ btn.appendChild(document.createTextNode("Remove"));
 
 
 function submitData (e){
-  if (validateData(e)){
-    console.log("hi");
-  }
-}
+  if(hhContentsUL.childElementCount > 0){
+    var submitbtn = document.getElementsByTagName('button')[1];
+    submitbtn.form = "hhbuilderForm"
+    submitbtn.value = 'submit';
+    submitbtn.onclick = document.getElementById('hhbuilderForm').submit();
+    alert("Thank you!");
+  };
+};
